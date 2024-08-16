@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# read the code before running 
 rename_to_lowercase() {
     local path="$1"
     for item in "$path"/*; do
@@ -20,7 +20,17 @@ rename_to_lowercase() {
     done
 }
 
+echo "WARNING: This script will rename all files and folders (including those in subdirectories) to lowercase."
+echo "This action cannot be easily undone. Make sure you have a backup before proceeding."
+echo "Current working directory: $(pwd)"
+echo ""
+read -p "Are you sure you want to continue? (y/N): " confirm
+
+if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
+
 # Start the renaming process from the current directory
 rename_to_lowercase "$(pwd)"
-
-echo "Renaming complete."
+    echo "Renaming complete."
+else
+    echo "Operation cancelled."
+fi
